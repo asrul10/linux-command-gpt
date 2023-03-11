@@ -98,6 +98,7 @@ func main() {
 		return
 	}
 
+	gpt3.InitKey()
 	s := time.Now()
 	done := make(chan bool)
 	go func() {
@@ -116,7 +117,6 @@ func main() {
 		}
 	}()
 
-	gpt3.InitKey()
 	r := gpt3.Completions(cmd)
 	done <- true
 	if r == "" {
