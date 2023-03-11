@@ -24,7 +24,7 @@ const (
 
 	HELP = `
 
-Usage: gpt3 [options]
+Usage: lcg [options]
 
   --help         output usage information
   --version      output the version number

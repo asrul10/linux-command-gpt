@@ -24,7 +24,7 @@ Are you sure you want to execute the command? (Y/n):
 
 ### Options
 ```bash
-> gpt3 [options]
+> lcg [options]
 
 --help         output usage information
 --version      output the version number
