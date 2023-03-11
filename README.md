@@ -5,10 +5,10 @@ Get Linux commands in natural language with the power of ChatGPT.
 Build from source
 ```bash
 > git clone --depth 1 https://github.com/asrul10/linux-command-gpt.git ~/.linux-command-gpt
-> cd linux-command-gpt
+> cd ~/.linux-command-gpt
 > go build -o lcg
 # Add to your environment $PATH
-> ln -s  ~/.local/bin/fd
+> ln -s ~/.linux-command-gpt/lcg ~/.local/bin
 ```
 
 ### Example Usage
