@@ -11,10 +11,12 @@ Build from source
 > ln -s ~/.linux-command-gpt/lcg ~/.local/bin
 ```
 
+Or you can [download lcg executable file][bin]
+
 ### Example Usage
 
 ```bash
-> lcg I want to extract file linux-command-gpt.tar.gz
+> lcg I want to extract linux-command-gpt.tar.gz file
 Completed in 0.92 seconds
 ┌────────────────────────────────────┐
 │ tar -xvzf linux-command-gpt.tar.gz │
