@@ -1,0 +1,33 @@
+archives:
+  - format: tar.gz
+
+builds:
+  - binary: lcg
+    env:
+      - CGO_ENABLED=0
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goos:
+      - linux
+      - darwin
+
+changelog:
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+  sort: asc
+
+checksum:
+  name_template: 'checksums.txt'
+
+release:
+  draft: true
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
