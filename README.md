@@ -11,7 +11,7 @@ Build from source
 > ln -s ~/.linux-command-gpt/lcg ~/.local/bin
 ```
 
-Or you can [download lcg executable file][bin]
+Or you can [download lcg executable file](https://github.com/asrul10/linux-command-gpt/releases)
 
 ### Example Usage
 
