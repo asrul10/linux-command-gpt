@@ -21,7 +21,7 @@ Completed in 0.92 seconds
 
 tar -xvzf linux-command-gpt.tar.gz 
 
-Are you sure you want to execute the command? (Y/n):
+Do you want to (e)xecute, (r)egenerate, or take (N)o action on the command? (e/r/N): 
 ```
 
 ### Options
