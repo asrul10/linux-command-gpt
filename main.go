@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/asrul/linux-command-gpt/gpt"
-	"golang.org/x/term"
 )
 
 const (
@@ -59,10 +58,6 @@ func handleCommand(cmd string) int {
 }
 
 func main() {
-	width, _, err := term.GetSize(0)
-	if err != nil {
-		panic(err)
-	}
 	currentUser, err := user.Current()
 	if err != nil {
 		panic(err)
@@ -131,11 +126,9 @@ func main() {
 	c := "Y"
 	elapsed := time.Since(s).Seconds()
 	elapsed = math.Round(elapsed*100) / 100
-	fmt.Printf("Completed in %v seconds\n", elapsed)
-	fmt.Println(strings.Repeat("─", width))
+	fmt.Printf("Completed in %v seconds\n\n", elapsed)
 	fmt.Println(r)
-	fmt.Println(strings.Repeat("─", width))
-	fmt.Print("Are you sure you want to execute the command? (Y/n): ")
+	fmt.Print("\nAre you sure you want to execute the command? (Y/n): ")
 	fmt.Scanln(&c)
 	if c != "Y" && c != "y" {
 		return

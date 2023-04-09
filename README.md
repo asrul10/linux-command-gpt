@@ -18,9 +18,9 @@ Or you can [download lcg executable file](https://github.com/asrul10/linux-comma
 ```bash
 > lcg I want to extract linux-command-gpt.tar.gz file
 Completed in 0.92 seconds
-┌────────────────────────────────────┐
-│ tar -xvzf linux-command-gpt.tar.gz │
-└────────────────────────────────────┘
+
+tar -xvzf linux-command-gpt.tar.gz 
+
 Are you sure you want to execute the command? (Y/n):
 ```
 
