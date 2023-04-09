@@ -34,7 +34,7 @@ Usage: lcg [options]
 Example Usage: lcg I want to extract linux-command-gpt.tar.gz file
   `
 
-	VERSION        = "0.1.0"
+	VERSION        = "0.1.3"
 	CMD_HELP       = 100
 	CMD_VERSION    = 101
 	CMD_UPDATE     = 102
