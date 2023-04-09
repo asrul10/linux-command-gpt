@@ -124,14 +124,14 @@ func main() {
 		return
 	}
 
-	c := "Y"
+	c := "N"
 	elapsed := time.Since(s).Seconds()
 	elapsed = math.Round(elapsed*100) / 100
 	fmt.Printf("Completed in %v seconds\n\n", elapsed)
 	fmt.Println(r)
-	fmt.Print("\nAre you sure you want to execute the command? (Y/n): ")
+	fmt.Print("\nAre you sure you want to execute the command? (y/N): ")
 	fmt.Scanln(&c)
-	if c != "Y" && c != "y" {
+	if c == "N" || c == "n" {
 		return
 	}
 
