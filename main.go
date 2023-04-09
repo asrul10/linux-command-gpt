@@ -31,9 +31,10 @@ Usage: lcg [options]
   --update-key   update the API key
   --delete-key   delete the API key
 
+Example Usage: lcg I want to extract linux-command-gpt.tar.gz file
   `
 
-	VERSION        = "0.1.0"
+	VERSION        = "0.1.3"
 	CMD_HELP       = 100
 	CMD_VERSION    = 101
 	CMD_UPDATE     = 102
@@ -55,6 +56,37 @@ func handleCommand(cmd string) int {
 		return CMD_DELETE
 	}
 	return CMD_COMPLETION
+}
+
+func getCommand(gpt3 gpt.Gpt3, cmd string) (string, float64) {
+	gpt3.InitKey()
+	s := time.Now()
+	done := make(chan bool)
+	go func() {
+		loadingChars := []rune{'-', '\\', '|', '/'}
+		i := 0
+		for {
+			select {
+			case <-done:
+				fmt.Printf("\r")
+				return
+			default:
+				fmt.Printf("\rLoading %c", loadingChars[i])
+				i = (i + 1) % len(loadingChars)
+				time.Sleep(30 * time.Millisecond)
+			}
+		}
+	}()
+
+	r := gpt3.Completions(cmd)
+	done <- true
+	elapsed := time.Since(s).Seconds()
+	elapsed = math.Round(elapsed*100) / 100
+
+	if r == "" {
+		return "", elapsed
+	}
+	return r, elapsed
 }
 
 func main() {
@@ -98,44 +130,24 @@ func main() {
 		return
 	}
 
-	gpt3.InitKey()
-	s := time.Now()
-	done := make(chan bool)
-	go func() {
-		loadingChars := []rune{'-', '\\', '|', '/'}
-		i := 0
-		for {
-			select {
-			case <-done:
-				fmt.Printf("\r")
-				return
-			default:
-				fmt.Printf("\rLoading %c", loadingChars[i])
-				i = (i + 1) % len(loadingChars)
-				time.Sleep(30 * time.Millisecond)
-			}
+	c := "R"
+	r := ""
+	elapsed := 0.0
+	for c == "R" || c == "r" {
+		r, elapsed = getCommand(gpt3, cmd)
+		c = "N"
+		fmt.Printf("Completed in %v seconds\n\n", elapsed)
+		fmt.Println(r)
+		fmt.Print("\nDo you want to (e)xecute, (r)egenerate, or take (N)o action on the command? (e/r/N): ")
+		fmt.Scanln(&c)
+		if c == "N" || c == "n" {
+			return
 		}
-	}()
+	}
 
-	r := gpt3.Completions(cmd)
-	done <- true
 	if r == "" {
 		return
 	}
-
-	c := "Y"
-	elapsed := time.Since(s).Seconds()
-	elapsed = math.Round(elapsed*100) / 100
-	fmt.Printf("Completed in %v seconds\n", elapsed)
-	fmt.Printf("┌%s┐\n", strings.Repeat("─", len(r)+2))
-	fmt.Printf("│ %s │\n", r)
-	fmt.Printf("└%s┘\n", strings.Repeat("─", len(r)+2))
-	fmt.Print("Are you sure you want to execute the command? (Y/n): ")
-	fmt.Scanln(&c)
-	if c != "Y" && c != "y" {
-		return
-	}
-
 	cmsplit := strings.Split(r, " ")
 	cm := exec.Command(cmsplit[0], cmsplit[1:]...)
 	out, err := cm.Output()
