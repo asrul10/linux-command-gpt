@@ -31,6 +31,7 @@ Usage: lcg [options]
   --update-key   update the API key
   --delete-key   delete the API key
 
+Example Usage: lcg I want to extract linux-command-gpt.tar.gz file
   `
 
 	VERSION        = "0.1.0"
