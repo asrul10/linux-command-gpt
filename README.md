@@ -21,8 +21,10 @@ Completed in 0.92 seconds
 
 tar -xvzf linux-command-gpt.tar.gz 
 
-Do you want to (e)xecute, (r)egenerate, or take (N)o action on the command? (e/r/N): 
+Do you want to (c)opy, (r)egenerate, or take (N)o action on the command? (c/r/N):
 ```
+
+To use the "copy to clipboard" feature, you need to install either the `xclip` or `xsel` package.
 
 ### Options
 ```bash

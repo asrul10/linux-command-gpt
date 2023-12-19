@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"os/exec"
 	"os/user"
 	"strings"
 	"time"
 
 	"github.com/asrul/linux-command-gpt/gpt"
+	"github.com/atotto/clipboard"
 )
 
 const (
@@ -138,8 +138,10 @@ func main() {
 		c = "N"
 		fmt.Printf("Completed in %v seconds\n\n", elapsed)
 		fmt.Println(r)
-		fmt.Print("\nDo you want to (e)xecute, (r)egenerate, or take (N)o action on the command? (e/r/N): ")
+		fmt.Print("\nDo you want to (c)opy, (r)egenerate, or take (N)o action on the command? (c/r/N): ")
 		fmt.Scanln(&c)
+
+		// No action
 		if c == "N" || c == "n" {
 			return
 		}
@@ -148,13 +150,11 @@ func main() {
 	if r == "" {
 		return
 	}
-	cmsplit := strings.Split(r, " ")
-	cm := exec.Command(cmsplit[0], cmsplit[1:]...)
-	out, err := cm.Output()
-	if err != nil {
-		fmt.Println(err.Error())
+
+	// Copy to clipboard
+	if c == "C" || c == "c" {
+		clipboard.WriteAll(r)
+		fmt.Println("\033[33mCopied to clipboard")
 		return
 	}
-
-	fmt.Println(string(out))
 }
