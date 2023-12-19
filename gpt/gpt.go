@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -88,7 +88,7 @@ func (gpt3 *Gpt3) loadApiKey() bool {
 	if _, err := os.Stat(apiKeyFile); os.IsNotExist(err) {
 		return false
 	}
-	apiKey, err := ioutil.ReadFile(apiKeyFile)
+	apiKey, err := os.ReadFile(apiKeyFile)
 	if err != nil {
 		return false
 	}
@@ -144,7 +144,7 @@ func (gpt3 *Gpt3) Completions(ask string) string {
 	if err != nil {
 		panic(err)
 	}
-	req.Body = ioutil.NopCloser(bytes.NewBuffer(payloadJson))
+	req.Body = io.NopCloser(bytes.NewBuffer(payloadJson))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -153,7 +153,7 @@ func (gpt3 *Gpt3) Completions(ask string) string {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
 	}
