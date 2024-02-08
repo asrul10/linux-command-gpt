@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/asrul/linux-command-gpt/gpt"
+	"github.com/asrul/linux-command-gpt/reader"
 	"github.com/atotto/clipboard"
 )
 
@@ -26,15 +27,17 @@ const (
 
 Usage: lcg [options]
 
-  --help         output usage information
-  --version      output the version number
-  --update-key   update the API key
-  --delete-key   delete the API key
+  --help        -h  output usage information
+  --version     -v  output the version number
+  --file        -f  read command from file
+  --update-key  -u  update the API key
+  --delete-key  -d  delete the API key
 
 Example Usage: lcg I want to extract linux-command-gpt.tar.gz file
+Example Usage: lcg --file /path/to/file.json I want to print object questions with jq
   `
 
-	VERSION        = "0.1.3"
+	VERSION        = "0.2.1"
 	CMD_HELP       = 100
 	CMD_VERSION    = 101
 	CMD_UPDATE     = 102
@@ -97,9 +100,24 @@ func main() {
 
 	args := os.Args
 	cmd := ""
+	file := ""
 	if len(args) > 1 {
-		cmd = strings.Join(args[1:], " ")
+		start := 1
+		if args[1] == "--file" || args[1] == "-f" {
+			file = args[2]
+			start = 3
+		}
+		cmd = strings.Join(args[start:], " ")
 	}
+
+	if file != "" {
+		err := reader.FileToPrompt(&cmd, file)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
+
 	h := handleCommand(cmd)
 
 	if h == CMD_HELP {
