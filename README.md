@@ -30,8 +30,9 @@ To use the "copy to clipboard" feature, you need to install either the `xclip` o
 ```bash
 > lcg [options]
 
---help         output usage information
---version      output the version number
---update-key   update the API key
---delete-key   delete the API key
+--help        -h  output usage information
+--version     -v  output the version number
+--file        -f  read command from file
+--update-key  -u  update the API key
+--delete-key  -d  delete the API key
 ```
