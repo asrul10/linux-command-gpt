@@ -16,8 +16,8 @@ import (
 const (
 	HOST        = "https://api.openai.com/v1/"
 	COMPLETIONS = "chat/completions"
-	MODEL       = "gpt-3.5-turbo"
-	PROMPT      = "I want you to reply with linux command and nothing else. Do not write explanations."
+	MODEL       = "gpt-4o-mini"
+	PROMPT      = "Reply with linux command and nothing else. No need explanation. No need code blocks"
 
 	// This file is created in the user's home directory
 	// Example: /home/username/.openai_api_key
@@ -136,6 +136,7 @@ func main() {
 		Prompt:        PROMPT,
 		HomeDir:       currentUser.HomeDir,
 		ApiKeyFile:    API_KEY_FILE,
+		Temperature:   0.01,
 	}
 
 	if h == CMD_UPDATE {

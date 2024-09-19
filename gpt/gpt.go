@@ -18,6 +18,7 @@ type Gpt3 struct {
 	HomeDir       string
 	ApiKeyFile    string
 	ApiKey        string
+	Temperature   float64
 }
 
 type Chat struct {
@@ -26,8 +27,9 @@ type Chat struct {
 }
 
 type Gpt3Request struct {
-	Model    string `json:"model"`
-	Messages []Chat `json:"messages"`
+	Model       string  `json:"model"`
+	Messages    []Chat  `json:"messages"`
+	Temperature float64 `json:"temperature"`
 }
 
 type Gpt3Response struct {
@@ -139,6 +141,7 @@ func (gpt3 *Gpt3) Completions(ask string) string {
 	payload := Gpt3Request{
 		gpt3.Model,
 		messages,
+		gpt3.Temperature,
 	}
 	payloadJson, err := json.Marshal(payload)
 	if err != nil {
